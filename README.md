@@ -21,9 +21,9 @@ recreate your bill with the ability to add members for the split on each item
 ensuring people end up paying only for things on the bill that they had,
 rather than an even split on the overall bill
 
-### **_current_** caveat
+#### **_current_** caveat
 
 splitverse(v1) does not yet allow total fine-grain control over the member splits on food items
 
 i.e., the members on the item are still equally charged.
-future iterations promise to bring this fine-grain control by splitting the amount on each item through consumption percentages so that not all consumers are equally charged
+the next version will bring this fine-grain control by splitting the amount on each item through consumption percentages so that not all consumers are equally charged
