@@ -103,24 +103,26 @@ const BillItemForm = ({ setAddBillItem }) => {
          ></input>
          <div className='mx-auto w-full max-w-[300px] h-[250px] flex flex-col space-y-4 overflow-y-auto'>
             <div
-               className={`mx-auto w-full h-[45px] flex items-center border ${
+               className={`mx-auto w-full h-[45px] flex items-center justify-center border ${
                   itemErrors.membersError ? 'border-red-400' : 'border-white'
                } rounded-lg hover:bg-purple-400`}
             >
                {/* toggler to switch to fine-grain split */}
-               <input
-                  type='checkbox'
-                  id='selectAll'
-                  className='w-1/5'
-                  name={`all`}
-                  value={`${members}`}
-                  checked={membersSelected.length === members.length}
-                  onChange={(e) => {
-                     handleCheckChange(e);
-                  }}
-               />
+               <div className='w-1/5 h-full flex items-center justify-center'>
+                  <input
+                     type='checkbox'
+                     id='selectAll'
+                     className='w-[20px]'
+                     name={`all`}
+                     value={`${members}`}
+                     checked={membersSelected.length === members.length}
+                     onChange={(e) => {
+                        handleCheckChange(e);
+                     }}
+                  />
+               </div>
                <label
-                  className='w-4/5 text-lg'
+                  className='w-4/5 h-full flex items-center text-lg'
                   htmlFor='selectAll'
                >
                   select all members
@@ -133,19 +135,21 @@ const BillItemForm = ({ setAddBillItem }) => {
                      itemErrors.membersError ? 'border-red-400' : 'border-white'
                   } rounded-lg hover:bg-purple-400`}
                >
-                  <input
-                     type='checkbox'
-                     id={`${member.name}`}
-                     className='w-1/5'
-                     name={`${member.name}`}
-                     value={`${member.name}`}
-                     checked={membersSelected.includes(member.name)}
-                     onChange={(e) => {
-                        handleCheckChange(e);
-                     }}
-                  ></input>
+                  <div className='w-1/5 h-full flex items-center justify-center'>
+                     <input
+                        type='checkbox'
+                        id={`${member.name}`}
+                        className='w-[20px]'
+                        name={`${member.name}`}
+                        value={`${member.name}`}
+                        checked={membersSelected.includes(member.name)}
+                        onChange={(e) => {
+                           handleCheckChange(e);
+                        }}
+                     />
+                  </div>
                   <label
-                     className='w-4/5 text-lg'
+                     className='w-4/5 h-full flex items-center text-lg'
                      htmlFor={`${member.name}`}
                   >
                      {member.name}
