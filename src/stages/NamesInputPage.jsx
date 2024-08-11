@@ -22,7 +22,7 @@ const NamesInputPage = ({ setSplitStage }) => {
          .filter((name, index, arr) => {
             if (name && !arr.slice(index + 1).includes(name)) {
                return name;
-            } else {
+            } else if (name) {
                validations = {
                   message: 'same name appeared more than once.',
                };
