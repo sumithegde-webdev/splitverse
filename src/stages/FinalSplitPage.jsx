@@ -109,7 +109,7 @@ const FinalSplitPage = () => {
    );
 
    return (
-      <div className='absolute top-[20%] left-[10%] w-4/5 h-3/5'>
+      <div className='absolute top-[17.5%] left-[10%] w-4/5 h-3/5'>
          <button
             type='button'
             onClick={() => {
@@ -152,7 +152,7 @@ const FinalSplitPage = () => {
             <div></div>
          )}
          {buttonDone && (
-            <div className='mt-8 pt-3 full h-[100px] flex flex-col items-center justify-between border-t-2 border-white text-lg'>
+            <div className='mt-6 pt-3 full h-[100px] flex flex-col items-center justify-between border-t-2 border-white text-xl'>
                <div className='text-purple-400'>
                   total bill
                   <span className='text-white text-lg'>
@@ -162,7 +162,7 @@ const FinalSplitPage = () => {
                      {total}
                   </span>
                </div>
-               <div className='w-full h-[55%] flex justify-center space-x-5'>
+               <div className='w-full h-[50%] flex justify-center space-x-5'>
                   <Button
                      clickEvent={refreshPage}
                      additionalStyle={

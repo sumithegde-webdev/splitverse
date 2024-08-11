@@ -14,6 +14,7 @@ const App = () => {
             </p>
             <p className='text-xs italic'>a group meal bill splitter.</p>
          </div>
+
          {splitStage === 'members' && (
             <NamesInputPage setSplitStage={setSplitStage} />
          )}
@@ -21,6 +22,17 @@ const App = () => {
             <BillRecreatePage setSplitStage={setSplitStage} />
          )}
          {splitStage === 'finalSplit' && <FinalSplitPage />}
+
+         <div className='absolute bottom-6 left-[20%] w-3/5 text-sm text-center'>
+            designed & developed by sumit hegde. github repo 👉🏼{' '}
+            <a
+               href='https://github.com/sumithegde-webdev/splitverse'
+               target='_blank'
+               rel='noopener noreferrer'
+            >
+               <span className='text-purple-400'>split</span>verse
+            </a>
+         </div>
       </>
    );
 };
