@@ -8,8 +8,11 @@ const App = () => {
 
    return (
       <>
-         <div className='absolute w-full h-1/6 min-h-[75px] flex items-center justify-center text-4xl'>
-            <span className='text-purple-400'>split</span>verse
+         <div className='absolute w-full h-1/6 min-h-[75px] flex flex-col gap-2 items-center justify-center text-4xl'>
+            <p>
+               <span className='text-purple-400'>split</span>verse
+            </p>
+            <p className='text-xs italic'>a group meal bill splitter.</p>
          </div>
          {splitStage === 'members' && (
             <NamesInputPage setSplitStage={setSplitStage} />

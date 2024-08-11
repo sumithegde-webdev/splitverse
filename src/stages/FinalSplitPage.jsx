@@ -132,14 +132,18 @@ const FinalSplitPage = () => {
                         className='mx-auto w-full max-w-[175px] h-full min-h-[100px] max-h-[120px] bg-violet-300 flex flex-col items-center justify-center text-black rounded-xl'
                         key={member.name}
                      >
-                        <div className='text-lg'>{member.name}</div>
-                        <div className='italic text-sm'>owes</div>
+                        <div className='text-lg'>
+                           {member.name}
+                           {`'s`}
+                        </div>
+                        <div className='italic text-sm'>share is</div>
                         <div className='text-xl'>
                            {JSON.parse(country)?.currency.symbol_native
                               ? JSON.parse(country)?.currency.symbol_native
                               : JSON.parse(country)?.currency.code}{' '}
                            {member.split.toFixed(2)}
                         </div>
+                        {/* <div className='italic text-sm'>during this outing</div> */}
                      </div>
                   );
                })}
