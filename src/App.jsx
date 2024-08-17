@@ -23,8 +23,8 @@ const App = () => {
          )}
          {splitStage === 'finalSplit' && <FinalSplitPage />}
 
-         <div className='absolute bottom-6 left-[20%] w-3/5 text-sm text-center'>
-            designed & developed by sumit hegde. github repo 👉🏼{' '}
+         <div className='absolute bottom-2 left-[20%] w-3/5 text-sm text-center'>
+            github repo 👉🏼{' '}
             <a
                href='https://github.com/sumithegde-webdev/splitverse'
                target='_blank'

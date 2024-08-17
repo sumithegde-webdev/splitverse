@@ -129,15 +129,33 @@ const FinalSplitPage = () => {
                {members.map((member) => {
                   return (
                      <div
-                        className='mx-auto w-full max-w-[175px] h-full min-h-[100px] max-h-[120px] bg-violet-300 flex flex-col items-center justify-center text-black rounded-xl'
+                        className='mx-auto w-full max-w-[175px] h-full min-h-[100px] max-h-[120px] bg-violet-300 flex flex-col items-center justify-center text-black rounded-xl text-wrap'
                         key={member.name}
                      >
+                        {member.name.split(' ').length === 1 ? (
+                           <div className='w-full text-center text-sm text-wrap'>
+                              {member.name}
+                              {`'s`}
+                           </div>
+                        ) : member.name.split(' ').length === 2 ? (
+                           <div className='w-full text-center text-sm text-wrap'>
+                              <p>{member.name.split(' ')[0]}</p>
+                              {member.name.split(' ')[1]}
+                              {`'s`}
+                           </div>
+                        ) : (
+                           <div className='w-full text-center text-sm text-wrap'>
+                              <p>{member.name.split(' ')[0]}</p>
+                              {
+                                 member.name.split(' ')[
+                                    member.name.split(' ').length - 1
+                                 ]
+                              }
+                              {`'s`}
+                           </div>
+                        )}
+                        <div className='italic text-xs'>share is</div>
                         <div className='text-lg'>
-                           {member.name}
-                           {`'s`}
-                        </div>
-                        <div className='italic text-sm'>share is</div>
-                        <div className='text-xl'>
                            {JSON.parse(country)?.currency.symbol_native
                               ? JSON.parse(country)?.currency.symbol_native
                               : JSON.parse(country)?.currency.code}{' '}
