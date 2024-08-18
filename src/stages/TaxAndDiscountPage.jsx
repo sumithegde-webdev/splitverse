@@ -109,13 +109,13 @@ const TaxAndDiscountPage = ({ setSplitStage }) => {
    }
 
    return (
-      <div className='absolute top-[27.5%] left-[20%] w-3/5 h-3/5 flex flex-col items-center space-y-14'>
+      <div className='absolute top-[27.5%] left-[12.5%] w-3/4 h-3/5 flex flex-col items-center space-y-14'>
          {/* tax section */}
          <div className='w-3/5 max-w-[300px] h-1/5 flex flex-col items-center justify-center space-y-2'>
             {/* <span>tax</span> */}
             <div className='w-full flex items-center justify-between'>
                <span
-                  className={`${
+                  className={`text-lg ${
                      taxToggler ? '' : 'pointer-events-none opacity-25'
                   }`}
                >
@@ -168,7 +168,7 @@ const TaxAndDiscountPage = ({ setSplitStage }) => {
             {/* <span>discount</span> */}
             <div className='w-full flex items-center justify-between'>
                <span
-                  className={`${
+                  className={`text-lg ${
                      discountToggler ? '' : 'pointer-events-none opacity-25'
                   }`}
                >
