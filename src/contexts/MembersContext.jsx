@@ -47,16 +47,16 @@ const MembersProvider = ({ children }) => {
    function setMembers(e, members) {
       e.preventDefault();
       const membersArray = members.filter((member) => {
-         if (member) return member;
+         if (member) return member.toLowerCase();
       });
 
       membersDispatch({ type: 'setMembers', payload: membersArray });
       setSessionToken(
-         membersArray[0].concat(
+         membersArray[0].split(' ')[0].concat(
             '#',
             `${new Date().getTime()}`
                // .toISOString()
-               .concat('#', membersArray[membersArray.length - 1])
+               .concat('#', membersArray[membersArray.length - 1].split(' ')[0])
          )
       );
    }
