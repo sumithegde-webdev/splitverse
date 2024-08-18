@@ -25,7 +25,7 @@ const BillRecreatePage = ({ setSplitStage }) => {
 
          {!addBillItem &&
             (bill.length > 0 ? (
-               <div className='mx-auto p-5 w-full max-w-[600px] h-4/5 max-h-[350px] bg-white rounded-tr-2xl rounded-bl-2xl overflow-y-auto'>
+               <div className='mx-auto p-5 w-full max-w-[600px] h-[75%] max-h-[350px] bg-white rounded-tr-2xl rounded-bl-2xl overflow-y-auto'>
                   {bill.map((item) => {
                      return (
                         <BillView
@@ -36,20 +36,20 @@ const BillRecreatePage = ({ setSplitStage }) => {
                   })}
                </div>
             ) : (
-               <div className='mx-auto p-5 w-full max-w-[600px] h-4/5 max-h-[350px] bg-white rounded-tr-2xl rounded-bl-2xl text-black'>
+               <div className='mx-auto p-5 w-full max-w-[600px] h-[75%] max-h-[350px] bg-white rounded-tr-2xl rounded-bl-2xl text-black'>
                   recreate the bill, only this time, select members for the
                   split on each item you add.
                </div>
             ))}
 
          {!addBillItem && (
-            <div className='relative mt-5 h-[80px] mx-auto w-full max-w-[600px]'>
+            <div className='relative h-[80px] mx-auto w-full max-w-[600px]'>
                <div className='w-full text-center rounded-full italic flex items-center justify-center space-x-2'>
                   <div className='h-[20px] w-[20px] bg-transparent border border-white rounded-full flex items-center justify-center'>
                      !
                   </div>
-                  <div>
-                     can add tax and discounts, if any, in the next stage
+                  <div className='text-xs'>
+                     can add tax and discount, if any, in the next stage
                   </div>
                </div>
                {bill.length > 0 && (
