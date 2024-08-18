@@ -43,18 +43,26 @@ const BillRecreatePage = ({ setSplitStage }) => {
             ))}
 
          {!addBillItem && (
-            <div className='relative mt-5 h-[50px] mx-auto w-full max-w-[600px]'>
+            <div className='relative mt-5 h-[80px] mx-auto w-full max-w-[600px]'>
+               <div className='w-full text-center rounded-full italic flex items-center justify-center space-x-2'>
+                  <div className='h-[20px] w-[20px] bg-transparent border border-white rounded-full flex items-center justify-center'>
+                     !
+                  </div>
+                  <div>
+                     can add tax and discounts, if any, in the next stage
+                  </div>
+               </div>
                {bill.length > 0 && (
                   <button
                      type='button'
-                     className='absolute bottom-0 left-0 w-2/5 h-[50px] max-w-[200px] bg-black rounded-md hover:bg-purple-400 hover:text-black'
+                     className='absolute bottom-0 left-0 w-2/5 h-[45px] max-w-[200px] bg-black rounded-md hover:bg-purple-400 hover:text-black'
                      onClick={(e) => {
                         e.preventDefault();
                         let billCon = window.confirm(
-                           'no further changes to the bill possible. move on?'
+                           'no further changes to the bill possible, only tax and discount can be added. move on?'
                         );
                         if (billCon) {
-                           setSplitStage('finalSplit');
+                           setSplitStage('taxAndDiscount');
                         }
                      }}
                   >
@@ -64,7 +72,7 @@ const BillRecreatePage = ({ setSplitStage }) => {
 
                <button
                   type='button'
-                  className='absolute bottom-0 right-0 text-black w-2/5 max-w-[200px] h-[50px] bg-purple-400 rounded-md hover:text-white'
+                  className='absolute bottom-0 right-0 text-black w-2/5 max-w-[200px] h-[45px] bg-purple-400 rounded-md hover:text-white'
                   onClick={() => setAddBillItem(true)}
                >
                   add a new item

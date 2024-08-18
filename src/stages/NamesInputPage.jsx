@@ -12,7 +12,7 @@ const NamesInputPage = ({ setSplitStage }) => {
    const [membersNumber, setMembersNumber] = useState(2);
    const [inputMembers, setInputMembers] = useState(['']);
    const [error, setErrors] = useState({});
-   const optionValues = new Array(19).fill(0);
+   const optionValues = new Array(14).fill(0);
 
    function nameChangesHandler(e) {
       e.preventDefault();
@@ -132,7 +132,6 @@ const NamesInputPage = ({ setSplitStage }) => {
                            }
                            value={val}
                            onChange={(e) => {
-                              console.log(inputMembers);
                               nameChangesHandler(e);
                            }}
                         />

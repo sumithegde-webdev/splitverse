@@ -56,7 +56,7 @@ const BillItemForm = ({ setAddBillItem }) => {
                //map over selected members and apply percentage calculation
                membersSelected,
             //priceAsPerConsumptionPercentage
-            splitPercents: [],
+            // splitPercents: [],
             pricePerHead: Number(
                (itemPriceRef.current.value / membersSelected.length).toFixed(3)
             ),
