@@ -18,12 +18,24 @@ const BillView = ({ item }) => {
                : JSON.parse(country).currency.code}{' '}
             {item.totalPrice}
          </div>
+         {/* <div className='absolute w-10 h-5 rounded-md top-2 right-10'>
+            <button
+               className='flex items-center justify-center w-full h-full bg-white rounded-md text-black border border-black'
+               onClick={(e) => {}}
+            >
+               edit
+            </button>
+         </div> */}
          <div className='absolute w-5 h-5 rounded-full top-2 right-2'>
             <button
                className='flex items-center justify-center w-full h-full bg-red-500 rounded-full text-white'
                onClick={(e) => {
                   let delCon = window.confirm(
-                     `remove ${item.itemName}(₹${item.totalPrice}) from the bill?`
+                     `remove ${item.itemName}(${
+                        JSON.parse(country).currency.symbol_native
+                           ? JSON.parse(country).currency.symbol_native
+                           : JSON.parse(country).currency.code
+                     }${item.totalPrice}) from the bill?`
                   );
                   if (delCon) {
                      onDeleteItem(e, item.itemId);
