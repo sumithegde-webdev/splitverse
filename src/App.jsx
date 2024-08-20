@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
+
+import Loading from './components/Loading';
 import NamesInputPage from './stages/NamesInputPage';
-import BillRecreatePage from './stages/BillRecreatePage';
-import FinalSplitPage from './stages/FinalSplitPage';
-import TaxAndDiscountPage from './stages/TaxAndDiscountPage';
+// import BillRecreatePage from './stages/BillRecreatePage';
+// import FinalSplitPage from './stages/FinalSplitPage';
+// import TaxAndDiscountPage from './stages/TaxAndDiscountPage';
+const BillRecreatePage = lazy(() => import('./stages/BillRecreatePage'));
+const TaxAndDiscountPage = lazy(() => import('./stages/TaxAndDiscountPage'));
+const FinalSplitPage = lazy(() => import('./stages/FinalSplitPage'));
 
 const App = () => {
    const [splitStage, setSplitStage] = useState('members');
@@ -17,15 +22,25 @@ const App = () => {
          </div>
 
          {splitStage === 'members' && (
-            <NamesInputPage setSplitStage={setSplitStage} />
+            <Suspense fallback={<Loading />}>
+               <NamesInputPage setSplitStage={setSplitStage} />
+            </Suspense>
          )}
          {splitStage === 'bill' && (
-            <BillRecreatePage setSplitStage={setSplitStage} />
+            <Suspense fallback={<Loading />}>
+               <BillRecreatePage setSplitStage={setSplitStage} />
+            </Suspense>
          )}
          {splitStage === 'taxAndDiscount' && (
-            <TaxAndDiscountPage setSplitStage={setSplitStage} />
+            <Suspense fallback={<Loading />}>
+               <TaxAndDiscountPage setSplitStage={setSplitStage} />
+            </Suspense>
          )}
-         {splitStage === 'finalSplit' && <FinalSplitPage />}
+         {splitStage === 'finalSplit' && (
+            <Suspense fallback={<Loading />}>
+               <FinalSplitPage />
+            </Suspense>
+         )}
 
          {(splitStage === 'members' || splitStage === 'finalSplit') && (
             <div className='absolute bottom-2 left-[20%] w-3/5 text-sm text-center'>
