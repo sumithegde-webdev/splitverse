@@ -49,8 +49,10 @@ const BillItemForm = ({ setAddBillItem }) => {
       if (Object.keys(validations).length === 0) {
          //
          onAddItem(e, {
-            itemId: itemNameRef.current.value.concat(new Date().getTime()),
-            itemName: itemNameRef.current.value,
+            itemId: itemNameRef.current.value
+               .toLowerCase()
+               .concat(new Date().getTime()),
+            itemName: itemNameRef.current.value.toLowerCase(),
             totalPrice: Math.abs(Number(itemPriceRef.current.value)),
             membersForTheSplit:
                //map over selected members and apply percentage calculation
