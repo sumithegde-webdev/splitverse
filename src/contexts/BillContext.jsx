@@ -24,9 +24,13 @@ function billReducer(state, action) {
 
       case 'editItem':
          return state.map((item) => {
-            item.itemId === action.itemId
-               ? { ...item, ...action.payload }
-               : item;
+            if (item.itemId === action.payload.itemId) {
+               return {
+                  ...action.payload,
+               };
+            } else {
+               return item;
+            }
          });
    }
 }
@@ -57,16 +61,21 @@ const BillProvider = ({ children }) => {
       billDispatch({ type: 'removeItem', payload: { itemId: itemId } });
    }
 
-   // function onEditItem(e, itemId, item) {
-   //    e.preventDefault();
-   //    billDispatch({
-   //       type: 'editItem',
-   //       payload: {
-   //          ...item,
-   //       },
-   //       itemId: itemId,
-   //    });
-   // }
+   function onEditItem(e, itemId, item) {
+      e.preventDefault();
+
+      billDispatch({
+         type: 'editItem',
+         payload: {
+            itemId: itemId,
+            itemName: item.itemName,
+            totalPrice: item.totalPrice,
+            membersForTheSplit: item.membersForTheSplit,
+            pricePerHead: item.pricePerHead,
+            // item: { ...item },
+         },
+      });
+   }
 
    return (
       <BillContext.Provider
@@ -76,7 +85,7 @@ const BillProvider = ({ children }) => {
             onDeleteItem,
             country,
             setCountry,
-            // onEditItem,
+            onEditItem,
          }}
       >
          {children}
