@@ -1,16 +1,22 @@
 /* eslint-disable react/prop-types */
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useBillContext } from '../contexts/BillContext';
 import { useMembersContext } from '../contexts/MembersContext';
 
-const BillItemForm = ({ setAddBillItem }) => {
+const BillItemForm = ({ setAddBillItem, editItem = {}, setEditItem }) => {
    const { members } = useMembersContext();
-   const { onAddItem } = useBillContext();
-   const [membersSelected, setMembersSelected] = useState([]);
+   const { onAddItem, onEditItem } = useBillContext();
+   const [membersSelected, setMembersSelected] = useState(
+      editItem.itemId ? editItem.membersForTheSplit : []
+   );
    const [itemErrors, setItemErrors] = useState({});
 
-   const itemNameRef = useRef('');
-   const itemPriceRef = useRef(0);
+   const [itemNameInput, setItemNameInput] = useState(
+      editItem.itemId ? editItem.itemName : ''
+   );
+   const [itemPriceInput, setItemPriceInput] = useState(
+      editItem.itemId ? Number(editItem.totalPrice) : 0
+   );
 
    function handleCheckChange(e) {
       const currentId = e.target.value;
@@ -36,33 +42,42 @@ const BillItemForm = ({ setAddBillItem }) => {
       e.preventDefault();
       let validations = {};
 
-      if (!itemNameRef.current.value.trim()) {
-         validations.itemNameError = 'cannot be empty';
+      if (!itemNameInput.trim()) {
+         validations.itemNameError = 'name cannot be empty';
       }
-      if (!itemPriceRef.current.value.trim()) {
-         validations.itemPriceError = 'cannot be empty';
+      if (itemPriceInput === 0) {
+         validations.itemPriceError = 'price cannot be 0';
       }
       if (membersSelected.length === 0) {
          validations.membersError = 'select atleast one member for the split';
       }
 
-      if (Object.keys(validations).length === 0) {
+      if (Object.keys(validations).length === 0 && !editItem.itemId) {
          //
          onAddItem(e, {
-            itemId: itemNameRef.current.value
-               .toLowerCase()
-               .concat(new Date().getTime()),
-            itemName: itemNameRef.current.value.toLowerCase(),
-            totalPrice: Math.abs(Number(itemPriceRef.current.value)),
+            itemId: itemNameInput.toLowerCase().concat(new Date().getTime()),
+            itemName: itemNameInput.toLowerCase(),
+            totalPrice: Math.abs(Number(itemPriceInput)),
             membersForTheSplit:
                //map over selected members and apply percentage calculation
                membersSelected,
             //priceAsPerConsumptionPercentage
             // splitPercents: [],
             pricePerHead: Number(
-               (itemPriceRef.current.value / membersSelected.length).toFixed(3)
+               (itemPriceInput / membersSelected.length).toFixed(3)
             ),
          });
+         setAddBillItem(false);
+      } else if (Object.keys(validations).length === 0 && editItem.itemId) {
+         onEditItem(e, editItem.itemId, {
+            itemName: itemNameInput.toLowerCase(),
+            totalPrice: Math.abs(Number(itemPriceInput)),
+            membersForTheSplit: membersSelected,
+            pricePerHead: Number(
+               (itemPriceInput / membersSelected.length).toFixed(3)
+            ),
+         });
+         setEditItem({});
          setAddBillItem(false);
       } else {
          setItemErrors(validations);
@@ -73,7 +88,7 @@ const BillItemForm = ({ setAddBillItem }) => {
    }
 
    return (
-      <div className='flex flex-col space-y-5'>
+      <div className='absolute z-30 w-full h-full flex flex-col space-y-5 bg-[#222]'>
          <input
             type='text'
             placeholder={
@@ -81,7 +96,12 @@ const BillItemForm = ({ setAddBillItem }) => {
                   ? `${itemErrors.itemNameError}`
                   : 'enter the item name'
             }
-            ref={itemNameRef}
+            // ref={itemNameRef}
+            // value={itemNameRef.current.value}
+            value={itemNameInput}
+            onChange={(e) => {
+               setItemNameInput(e.target.value);
+            }}
             className={`mx-auto p-3 bg-transparent w-full max-w-[450px] h-[50px] border-2 ${
                itemErrors.itemNameError
                   ? 'border-red-400 placeholder:text-red-400'
@@ -96,7 +116,11 @@ const BillItemForm = ({ setAddBillItem }) => {
                   ? `${itemErrors.itemPriceError}`
                   : 'enter the item price'
             }
-            ref={itemPriceRef}
+            // ref={itemPriceRef}
+            value={Number(itemPriceInput)}
+            onChange={(e) => {
+               setItemPriceInput(Number(e.target.value));
+            }}
             className={`mx-auto p-3 bg-transparent w-full max-w-[450px] h-[50px] border-2 ${
                itemErrors.itemPriceError
                   ? 'border-red-400 placeholder:text-red-400'
@@ -160,21 +184,40 @@ const BillItemForm = ({ setAddBillItem }) => {
             ))}
          </div>
          <div className='relative mx-auto w-full max-w-[450px] h-[50px]'>
-            <button
-               type='button'
-               className='absolute h-full w-2/5 max-w-[100px] border hover:bg-green-600 left-0 rounded-md'
-               onClick={(e) => {
-                  itemAdditionValidation(e);
-               }}
-            >
-               add
-            </button>
+            {editItem.itemId ? (
+               <button
+                  type='button'
+                  className='absolute h-full w-2/5 max-w-[100px] border hover:bg-green-600 left-0 rounded-md'
+                  onClick={(e) => {
+                     itemAdditionValidation(e);
+                  }}
+               >
+                  edit
+               </button>
+            ) : (
+               <button
+                  type='button'
+                  className='absolute h-full w-2/5 max-w-[100px] border hover:bg-green-600 left-0 rounded-md'
+                  onClick={(e) => {
+                     itemAdditionValidation(e);
+                  }}
+               >
+                  add
+               </button>
+            )}
             <p className='absolute left-[30%] w-2/5 h-full text-red-400 text-center'>
-               {itemErrors.membersError}
+               {itemErrors.membersError ||
+                  itemErrors.itemNameError ||
+                  itemErrors.itemPriceError}
             </p>
             <button
                className='absolute h-full w-2/5 max-w-[100px] border hover:bg-red-600 right-0 rounded-md'
-               onClick={() => setAddBillItem(false)}
+               onClick={() => {
+                  if (editItem.itemId) {
+                     setEditItem({});
+                  }
+                  setAddBillItem(false);
+               }}
             >
                cancel
             </button>

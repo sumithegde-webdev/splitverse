@@ -46,6 +46,17 @@ const NamesInputPage = ({ setSplitStage }) => {
          };
       }
 
+      inputMembers.map((member) => {
+         if (!member.trim()) {
+            validations = {
+               message: 'atleast one name is missing.',
+            };
+            let arr = new Array(membersNumber).fill('');
+            setInputMembers(arr);
+            return;
+         }
+      });
+
       inputMembers.map((memberName) => {
          if (!/^[a-zA-Z ]*$/.test(memberName)) {
             validations = {

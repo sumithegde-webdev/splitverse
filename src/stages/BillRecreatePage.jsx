@@ -8,8 +8,16 @@ import BillView from '../components/BillView';
 const BillRecreatePage = ({ setSplitStage }) => {
    const { defaultTitle } = useMembersContext();
    const { bill } = useBillContext();
+   const { members } = useMembersContext();
 
    const [addBillItem, setAddBillItem] = useState(false);
+
+   const [editItem, setEditItem] = useState({});
+
+   // useEffect(() => {
+   //    console.log('item,', editItem);
+   //    console.log('bill,', bill);
+   // }, [editItem, bill]);
 
    useEffect(() => {
       document.title = 'splitverse | bill';
@@ -23,7 +31,16 @@ const BillRecreatePage = ({ setSplitStage }) => {
       <div className='absolute flex flex-col justify-between left-[10%] w-4/5 h-2/3 top-[20%]'>
          {addBillItem && <BillItemForm setAddBillItem={setAddBillItem} />}
 
+         {editItem.itemId && (
+            <BillItemForm
+               setAddBillItem={setAddBillItem}
+               editItem={editItem}
+               setEditItem={setEditItem}
+            />
+         )}
+
          {!addBillItem &&
+            !editItem.itemId &&
             (bill.length > 0 ? (
                <div className='mx-auto p-5 w-full max-w-[600px] h-[75%] max-h-[350px] bg-white rounded-tr-2xl rounded-bl-2xl overflow-y-auto'>
                   {bill.map((item) => {
@@ -31,6 +48,7 @@ const BillRecreatePage = ({ setSplitStage }) => {
                         <BillView
                            key={item.itemId}
                            item={item}
+                           setEditItem={setEditItem}
                         />
                      );
                   })}
@@ -58,6 +76,7 @@ const BillRecreatePage = ({ setSplitStage }) => {
                      className='absolute bottom-0 left-0 w-2/5 h-[45px] max-w-[200px] bg-black rounded-md hover:bg-purple-400 hover:text-black'
                      onClick={(e) => {
                         e.preventDefault();
+                        // let testVar = 0;
                         let billCon = window.confirm(
                            'no further changes to the bill possible, only tax and discount can be added. move on?'
                         );
